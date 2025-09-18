@@ -1,53 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmuwengyl4oxm"]
 
-[ext_resource type="PackedScene" uid="uid://byph5knwx6feb" path="res://scenes/bat.tscn" id="1_3wj70"]
 [ext_resource type="PackedScene" uid="uid://be82ywiel2vd2" path="res://scenes/abstract_arena.tscn" id="1_mc1mh"]
-[ext_resource type="Script" uid="uid://dndhayjur27tj" path="res://components/controls_camera_fixed.gd" id="3_f0re4"]
+[ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="2_arvg4"]
 [ext_resource type="Script" uid="uid://r1ykrf4v7fcv" path="res://components/manager.gd" id="5_3jja6"]
 [ext_resource type="Script" uid="uid://n0v5fkhstlbp" path="res://scenes/shoot_point.gd" id="5_arvg4"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_f0re4"]
-size = Vector3(1, 1, 0.5)
+[ext_resource type="Script" uid="uid://cwtxl75r8s0b1" path="res://components/multiplayer_spawner.gd" id="5_olgv6"]
+[ext_resource type="Script" uid="uid://d0vp6ta7t0pkt" path="res://components/network_buttons.gd" id="6_4eqjf"]
 
 [node name="Default_scene 3D" type="Node3D"]
 
 [node name="Arena" parent="." instance=ExtResource("1_mc1mh")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 20, 0, 0, 0)
-
-[node name="CameraMan" type="RigidBody3D" parent="Arena"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-gravity_scale = 0.0
-
-[node name="Camera3D" type="Camera3D" parent="Arena/CameraMan"]
-
-[node name="Player" type="RigidBody3D" parent="Arena"]
-transform = Transform3D(0.999995, 0.0032114, 0, -0.0032114, 0.999995, 0, 0, 0, 1, 0, 0, 0.816598)
-collision_layer = 0
-collision_mask = 4
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-gravity_scale = 0.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Arena/Player"]
-transform = Transform3D(0.105, -4.88944e-11, 0, 4.88944e-11, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
-shape = SubResource("BoxShape3D_f0re4")
-
-[node name="Camera3D" type="Camera3D" parent="Arena/Player"]
-current = true
-fov = 103.8
-
-[node name="Bat" parent="Arena/Player" instance=ExtResource("1_3wj70")]
-transform = Transform3D(0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0, 0, -0.01)
-visible = false
-collision_layer = 8
-motion_mode = 1
-
-[node name="Controls" type="Node" parent="Arena/Player"]
-script = ExtResource("3_f0re4")
-move_speed = 10.0
-acceleration = 1.0
-mouse_sence = 1.0
 
 [node name="ShootPoint" type="Marker3D" parent="." node_paths=PackedStringArray("manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5221)
@@ -61,31 +24,78 @@ initial_speed = 0.1
 script = ExtResource("5_3jja6")
 arena = NodePath("../Arena")
 shoot_point = NodePath("../ShootPoint")
-team_1_score_label = NodePath("../Control/PanelContainer/HBoxContainer/TeamOneScore")
-team_2_score_label = NodePath("../Control/PanelContainer/HBoxContainer/TeamTwoScore")
+team_1_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
+team_2_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
 
-[node name="Control" type="Control" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("player_1_spawn_point", "player_2_spawn_point")]
+_spawnable_scenes = PackedStringArray("uid://u33w8gk7atac")
+spawn_path = NodePath("..")
+script = ExtResource("5_olgv6")
+scene_to_spawn = ExtResource("2_arvg4")
+player_1_spawn_point = NodePath("../Player1Spawn")
+player_2_spawn_point = NodePath("../Player2Spawn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Control"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
 layout_mode = 2
 
-[node name="TeamOneScore" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+[node name="TeamOneScore" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
 
-[node name="Centre" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+[node name="Centre" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = ":"
 
-[node name="TeamTwoScore" type="Label" parent="Control/PanelContainer/HBoxContainer"]
+[node name="TeamTwoScore" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
+
+[node name="NetworkButtons" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("6_4eqjf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/NetworkButtons"]
+layout_mode = 2
+
+[node name="ServerBtn" type="Button" parent="CanvasLayer/Control/NetworkButtons/VBoxContainer"]
+layout_mode = 2
+text = "Server"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Control/NetworkButtons/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "ip here"
+
+[node name="ClientBtn" type="Button" parent="CanvasLayer/Control/NetworkButtons/VBoxContainer"]
+layout_mode = 2
+text = "Client"
+
+[node name="Player1Spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.5573)
+
+[node name="Player2Spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.7353)
+
+[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ServerBtn" to="CanvasLayer/Control/NetworkButtons" method="_on_server_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ClientBtn" to="CanvasLayer/Control/NetworkButtons" method="_on_client_btn_pressed"]

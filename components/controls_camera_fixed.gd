@@ -24,6 +24,7 @@ func _apply_input_force(force: Vector3) -> void:
 	pass
 
 func _process_move(_delta: float) -> void:
+	if !_controlled_body.is_multiplayer_authority(): return
 	var movement_input := Input.get_vector("Down", "Up", "Left", "Right")
 	var move_direction := Vector3(movement_input.y, movement_input.x, 0.0)
 	if use_floating_physics: 

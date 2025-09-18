@@ -15,13 +15,17 @@ run/main_scene="uid://bmuwengyl4oxm"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+NetworkHandler="*res://components/network_handler.gd"
+
 [dotnet]
 
 project/assembly_name="SpaceBallZ"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 
