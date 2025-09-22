@@ -6,7 +6,17 @@ extends MultiplayerSpawner
 @export var player_2_spawn_point : Marker3D
 
 
+
+func _spawn_function(data: Dictionary) -> Node:
+	var player : Player = scene_to_spawn.instantiate()
+	player.name = str(data.id)
+	player.default_coordinates = data.default_coordinates
+	player.setup_multiplayer(data.id)
+	return player
+
+
 func _ready():
+	spawn_function = _spawn_function
 	multiplayer.peer_connected.connect(spawn_player)
 
 
@@ -24,11 +34,17 @@ func spawn_player(id: int):
 	else:
 		return
 
-	var player : Player = scene_to_spawn.instantiate()
-	player.name = str(id)
-	player.position = spawn_point.position
-	player.setup_multiplayer(id)
-	spawn_point.get_parent().call_deferred("add_child", player)
+	var data : Dictionary  = {
+		id = id,
+		default_coordinates = spawn_point.position,
+		}
+
+	
+	spawn(data)
+	# spawn_point.get_parent().call_deferred("add_child", spawn(data))
+	
+	
+
 
 
 	

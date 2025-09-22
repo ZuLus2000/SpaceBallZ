@@ -4,6 +4,7 @@ class_name Player extends RigidBody3D
 
 @onready var player_camera : Camera3D = %PlayerCamera
 
+var default_coordinates : Vector3
 
 func _ready():
 	assert(player_camera)
@@ -18,4 +19,4 @@ func setup_multiplayer(id: int):
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-	pass
+	position = default_coordinates
