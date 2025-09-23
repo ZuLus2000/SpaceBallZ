@@ -8,6 +8,7 @@ class_name Player extends RigidBody3D
 @onready var _player_camera : Camera3D = %PlayerCamera
 
 
+var x_inverted : bool = false
 var default_coordinates : Vector3
 
 var desired_direction := Vector3.ZERO
@@ -28,6 +29,7 @@ func _apply_input_force(force: Vector3) -> void:
 func _physics_process(_delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	var move_direction := desired_direction
+	if x_inverted: move_direction.x *= -1
 	if use_floating_physics: 
 		_apply_input_force(move_direction*move_speed)
 		return

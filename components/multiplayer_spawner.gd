@@ -14,6 +14,7 @@ func _spawn_function(data: Dictionary) -> Node:
 	player.default_coordinates = data.default_coordinates
 	if data.invert_direction:
 		player.rotate_y(PI)
+		player.x_inverted = true
 	player_spawned.emit(player)
 	return player
 
