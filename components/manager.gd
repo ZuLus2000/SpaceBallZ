@@ -3,6 +3,7 @@ class_name Manager extends Node
 
 enum Team {team_1, team_2}
 
+static var manager_instance : Manager = self
 
 @export var arena: Arena
 @export var shoot_point : ShootPoint
@@ -20,6 +21,7 @@ func _check_if_all_values_set() -> void:
 		assert(value != null)
 
 func _ready():
+	if manager_instance == null: manager_instance = self
 	_check_if_all_values_set()
 	arena.team_score.connect(scored)
 	shoot_point.ball_spawned.connect(_set_scoring_ball)
