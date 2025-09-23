@@ -20,14 +20,15 @@ max_x_deviation = 180.0
 manager = NodePath("../Manager")
 initial_speed = 0.1
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("arena", "shoot_point", "team_1_score_label", "team_2_score_label")]
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("arena", "shoot_point", "team_1_score_label", "team_2_score_label", "player_spawner")]
 script = ExtResource("5_3jja6")
 arena = NodePath("../Arena")
 shoot_point = NodePath("../ShootPoint")
 team_1_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
 team_2_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
+player_spawner = NodePath("../PlayerSpawner")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("player_1_spawn_point", "player_2_spawn_point")]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("player_1_spawn_point", "player_2_spawn_point")]
 _spawnable_scenes = PackedStringArray("uid://u33w8gk7atac")
 spawn_path = NodePath("..")
 script = ExtResource("5_olgv6")
