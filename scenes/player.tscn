@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://byph5knwx6feb" path="res://scenes/bat.tscn" id="1_g2els"]
 [ext_resource type="Script" uid="uid://c8k5k6y4s6wxc" path="res://scenes/player.gd" id="1_qhqgy"]
-[ext_resource type="Script" uid="uid://dndhayjur27tj" path="res://components/controls_camera_fixed.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://cr2c06bomjaem" path="res://components/input_controls.gd" id="3_qhqgy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f0re4"]
 size = Vector3(1, 1, 0.5)
@@ -22,6 +22,8 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 0.0
 script = ExtResource("1_qhqgy")
+move_speed = 10.0
+acceleration = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.105, -4.88944e-11, 0, 4.88944e-11, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
@@ -37,10 +39,7 @@ collision_layer = 8
 motion_mode = 1
 
 [node name="Controls" type="Node" parent="."]
-script = ExtResource("2_qhqgy")
-move_speed = 10.0
-acceleration = 1.0
-mouse_sence = 1.0
+script = ExtResource("3_qhqgy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
