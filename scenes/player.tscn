@@ -29,7 +29,6 @@ shape = SubResource("BoxShape3D_f0re4")
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 unique_name_in_owner = true
-current = true
 fov = 103.8
 
 [node name="Bat" parent="." instance=ExtResource("1_g2els")]
