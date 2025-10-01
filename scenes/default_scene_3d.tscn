@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="2_arvg4"]
 [ext_resource type="Script" uid="uid://r1ykrf4v7fcv" path="res://components/manager.gd" id="5_3jja6"]
 [ext_resource type="Script" uid="uid://n0v5fkhstlbp" path="res://scenes/shoot_point.gd" id="5_arvg4"]
-[ext_resource type="Script" uid="uid://cwtxl75r8s0b1" path="res://components/multiplayer_spawner.gd" id="5_olgv6"]
+[ext_resource type="Script" uid="uid://cwtxl75r8s0b1" path="res://components/player_spawner.gd" id="5_olgv6"]
 [ext_resource type="Script" uid="uid://d0vp6ta7t0pkt" path="res://components/network_buttons.gd" id="6_4eqjf"]
 
 [node name="Default_scene 3D" type="Node3D"]
