@@ -1,6 +1,7 @@
 
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 namespace SpaceBallZ
 {
@@ -43,9 +44,11 @@ namespace SpaceBallZ
             }
         }
 
-        public override void _Ready()
+        public  override void _Ready()
         {
             CheckIfAllValuesSet();
+			// _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
+			_playerSpawner.PlayerSpawned += OnPlayerSpawned;
 
         }
 
@@ -77,5 +80,23 @@ namespace SpaceBallZ
 			_scoringBall.QueueFree();
 			_shootPoint.SpawnBall();
         }
+
+		private void OnPlayerSpawned(Player playerInstance)
+		{
+			Task.Run(()=> SetPlayerCamera(playerInstance));
+		}
+
+		private async Task SetPlayerCamera(Player playerInstance)
+		{
+			await ToSignal(_playerSpawner, Player.SignalName.Ready);
+			if (Multiplayer.IsServer()) return;
+			bool isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
+			if (Variant.From(ControlledPlayer).VariantType == Variant.Type.Nil && isSpawnedPlayerUnderMyControl)
+			{
+				ControlledPlayer = playerInstance;
+				playerInstance.SetupCamera(true);
+			}
+		}
+
     }
 }

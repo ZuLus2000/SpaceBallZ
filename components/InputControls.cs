@@ -3,7 +3,7 @@ using Godot;
 
 namespace SpaceBallZ
 {
-    class InputControls : Node
+    partial class InputControls : Node
     {
         private Player _controlled_body;
 

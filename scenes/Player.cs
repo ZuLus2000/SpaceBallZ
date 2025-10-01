@@ -48,5 +48,10 @@ namespace SpaceBallZ
         {
             ApplyCentralForce(force);
         }
+
+		public void SetupCamera(bool state)
+		{
+			_playerCamera.Current = state;
+		}
     }
 }
