@@ -4,7 +4,7 @@ using Godot.Collections;
 
 namespace SpaceBallZ
 {
-    public partial class Arena : Node3D
+    public partial class AbstractArena : Node3D
     {
         [Export]
         private Array<WallCollider> ScoringSurfaceTeam1 = new Array<WallCollider>();

@@ -14,7 +14,7 @@ namespace SpaceBallZ
 
 
         [Export]
-        private Arena _arena;
+        private AbstractArena _arena;
         [Export]
         private ShootPoint _shootPoint;
 
@@ -47,7 +47,6 @@ namespace SpaceBallZ
         public  override void _Ready()
         {
             CheckIfAllValuesSet();
-			// _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
 			_playerSpawner.PlayerSpawned += OnPlayerSpawned;
 
         }
