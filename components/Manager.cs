@@ -27,7 +27,7 @@ namespace SpaceBallZ
         private PlayerSpawner _playerSpawner;
 
 
-        protected Player ControlledPlayer;
+        protected Player ControlledPlayer = null;
 
         private Ball _scoringBall;
 
@@ -48,7 +48,10 @@ namespace SpaceBallZ
         {
             CheckIfAllValuesSet();
 			_playerSpawner.PlayerSpawned += OnPlayerSpawned;
-
+			// _playerSpawner.PlayerSpawned += Task.Run(async (_playerInstance) => await SetPlayerCamera(_playerInstance)).Wait();
+			_arena.TeamScore += Scored;
+			_shootPoint.BallSpawned += setScoringBall;
+			_shootPoint.SpawnBall();
         }
 
         private void UpdateScores()
@@ -82,19 +85,30 @@ namespace SpaceBallZ
 
 		private void OnPlayerSpawned(Player playerInstance)
 		{
-			Task.Run(()=> SetPlayerCamera(playerInstance));
+			SetPlayerCamera(playerInstance);
+
 		}
 
-		private async Task SetPlayerCamera(Player playerInstance)
+		private void SetPlayerCamera(Player playerInstance)
 		{
-			await ToSignal(_playerSpawner, Player.SignalName.Ready);
+			// GD.Print("SetPlayerCamera start!");
+			// Task.Run(async () => await ToSignal(_playerSpawner, Player.SignalName.Ready)).Wait();
+			ToSignal(_playerSpawner, Player.SignalName.Ready);	
+			// GD.Print("Player is ready!");
 			if (Multiplayer.IsServer()) return;
 			bool isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
-			if (Variant.From(ControlledPlayer).VariantType == Variant.Type.Nil && isSpawnedPlayerUnderMyControl)
+			GD.Print("Under my: " + isSpawnedPlayerUnderMyControl.ToString());
+			GD.Print("Is null: " + (ControlledPlayer == null).ToString());
+			if (ControlledPlayer == null && isSpawnedPlayerUnderMyControl)
 			{
 				ControlledPlayer = playerInstance;
 				playerInstance.SetupCamera(true);
 			}
+		}
+
+		private void setScoringBall(Ball ball) 
+		{
+			_scoringBall = ball;
 		}
 
     }

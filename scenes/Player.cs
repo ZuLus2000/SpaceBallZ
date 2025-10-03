@@ -27,9 +27,14 @@ namespace SpaceBallZ
         public override void _EnterTree()
         {
             SetMultiplayerAuthority(System.Int32.Parse(Name.ToString()));
+			// SetupMultiplayer(System.Int32.Parse(Name.ToString()));
             Position = DefaultCoordinates;
 
         }
+		public void SetupMultiplayer(int id)
+		{
+			SetMultiplayerAuthority(id);
+		}
 
         public override void _PhysicsProcess(double delta)
         {
