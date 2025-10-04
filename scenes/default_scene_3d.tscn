@@ -1,40 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmuwengyl4oxm"]
+[gd_scene load_steps=8 format=3 uid="uid://bmuwengyl4oxm"]
 
 [ext_resource type="PackedScene" uid="uid://be82ywiel2vd2" path="res://scenes/abstract_arena.tscn" id="1_mc1mh"]
-[ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="2_arvg4"]
-[ext_resource type="Script" uid="uid://r1ykrf4v7fcv" path="res://components/manager.gd" id="5_3jja6"]
-[ext_resource type="Script" uid="uid://n0v5fkhstlbp" path="res://scenes/shoot_point.gd" id="5_arvg4"]
-[ext_resource type="Script" uid="uid://cwtxl75r8s0b1" path="res://components/multiplayer_spawner.gd" id="5_olgv6"]
-[ext_resource type="Script" uid="uid://d0vp6ta7t0pkt" path="res://components/network_buttons.gd" id="6_4eqjf"]
+[ext_resource type="Script" uid="uid://cddweoveim3y4" path="res://scenes/ShootPoint.cs" id="2_arvg4"]
+[ext_resource type="PackedScene" uid="uid://eqpgqr2j5i4j" path="res://scenes/ball.tscn" id="3_olgv6"]
+[ext_resource type="Script" uid="uid://djhqeggdein8l" path="res://components/Manager.cs" id="4_4eqjf"]
+[ext_resource type="Script" uid="uid://dqte0u6o5e4p7" path="res://components/PlayerSpawner.cs" id="5_8j3wy"]
+[ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="6_olgv6"]
+[ext_resource type="Script" uid="uid://dkomwwgb373kk" path="res://components/NetworkButtons.cs" id="7_olgv6"]
 
 [node name="Default_scene 3D" type="Node3D"]
 
-[node name="Arena" parent="." instance=ExtResource("1_mc1mh")]
+[node name="AbstractArena" parent="." instance=ExtResource("1_mc1mh")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 20, 0, 0, 0)
 
-[node name="ShootPoint" type="Marker3D" parent="." node_paths=PackedStringArray("manager")]
+[node name="ShootPoint" type="Marker3D" parent="." node_paths=PackedStringArray("_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5221)
-script = ExtResource("5_arvg4")
-max_y_deviation = 180.0
-max_x_deviation = 180.0
-manager = NodePath("../Manager")
-initial_speed = 0.1
+script = ExtResource("2_arvg4")
+_ballScene = ExtResource("3_olgv6")
+_minYDeviation = -0.5
+_maxYDeviation = 0.5
+_minXDeviation = -0.5
+_maxXDeviation = 0.5
+_manager = NodePath("../Manager")
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("arena", "shoot_point", "team_1_score_label", "team_2_score_label", "player_spawner")]
-script = ExtResource("5_3jja6")
-arena = NodePath("../Arena")
-shoot_point = NodePath("../ShootPoint")
-team_1_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
-team_2_score_label = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
-player_spawner = NodePath("../PlayerSpawner")
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("_arena", "_shootPoint", "Team1ScoreLabel", "Team2ScoreLabel", "_playerSpawner")]
+script = ExtResource("4_4eqjf")
+_arena = NodePath("../AbstractArena")
+_shootPoint = NodePath("../ShootPoint")
+Team1ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
+Team2ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
+_playerSpawner = NodePath("../PlayerSpawner")
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("player_1_spawn_point", "player_2_spawn_point")]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("Player1SpawnPoint", "Player2SpawnPoint")]
 _spawnable_scenes = PackedStringArray("uid://u33w8gk7atac")
 spawn_path = NodePath("..")
-script = ExtResource("5_olgv6")
-scene_to_spawn = ExtResource("2_arvg4")
-player_1_spawn_point = NodePath("../Player1Spawn")
-player_2_spawn_point = NodePath("../Player2Spawn")
+script = ExtResource("5_8j3wy")
+SceneToSpawn = ExtResource("6_olgv6")
+Player1SpawnPoint = NodePath("../Player1Spawn")
+Player2SpawnPoint = NodePath("../Player2Spawn")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -75,7 +78,7 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
-script = ExtResource("6_4eqjf")
+script = ExtResource("7_olgv6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/NetworkButtons"]
 layout_mode = 2
@@ -101,5 +104,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.7353)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.808067, -0.193538, 0.556392, -0.0453846, 0.921231, 0.386359, -0.58734, -0.337456, 0.735632, 5.76827, 6.3475, 20.3334)
 
-[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ServerBtn" to="CanvasLayer/Control/NetworkButtons" method="_on_server_btn_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ClientBtn" to="CanvasLayer/Control/NetworkButtons" method="_on_client_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ServerBtn" to="CanvasLayer/Control/NetworkButtons" method="OnServerBtnPressed"]
+[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ClientBtn" to="CanvasLayer/Control/NetworkButtons" method="OnClientBtnPressed"]

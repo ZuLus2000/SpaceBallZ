@@ -17,15 +17,26 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NetworkHandler="*res://components/network_handler.gd"
+NetworkHandler="*res://components/NetworkHandler.cs"
 
 [dotnet]
 
 project/assembly_name="SpaceBallZ"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_discovery=true
+settings/test/test_suite_naming_convention=1
+ui/toolbar/run_overall=true
 
 [input]
 

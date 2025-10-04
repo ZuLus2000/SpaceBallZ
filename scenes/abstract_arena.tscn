@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://be82ywiel2vd2"]
 
 [ext_resource type="Texture2D" uid="uid://cafaosik2aym7" path="res://icon.svg" id="1_dhkka"]
-[ext_resource type="Script" uid="uid://cxmc0h2wmktf2" path="res://scenes/abstract_arena.gd" id="1_xocu3"]
-[ext_resource type="Script" uid="uid://ck0rn1kbqs8ph" path="res://scenes/wall_collider.gd" id="3_xln6f"]
+[ext_resource type="Script" uid="uid://408o2tdw5vjm" path="res://scenes/AbstractArena.cs" id="1_xln6f"]
+[ext_resource type="Script" uid="uid://7pysh4iw6h2d" path="res://scenes/WallCollider.cs" id="3_ljvw5"]
 
 [sub_resource type="FogMaterial" id="FogMaterial_dhkka"]
 
@@ -16,10 +16,10 @@ size = Vector3(1.5, 0.261, 2.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xln6f"]
 size = Vector3(1.50226, 0.261, 1.49998)
 
-[node name="Arena" type="Node3D" node_paths=PackedStringArray("scoring_surface_team_1", "scoring_surface_team_2")]
-script = ExtResource("1_xocu3")
-scoring_surface_team_1 = [NodePath("Area3D2")]
-scoring_surface_team_2 = [NodePath("Area3D")]
+[node name="AbstractArena" type="Node3D" node_paths=PackedStringArray("ScoringSurfaceTeam1", "ScoringSurfaceTeam2")]
+script = ExtResource("1_xln6f")
+ScoringSurfaceTeam1 = [NodePath("Area3D2")]
+ScoringSurfaceTeam2 = [NodePath("Area3D")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
@@ -76,14 +76,18 @@ shape = SubResource("BoxShape3D_xln6f")
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
-script = ExtResource("3_xln6f")
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_ljvw5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_xln6f")
 
 [node name="Area3D2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1)
-script = ExtResource("3_xln6f")
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_ljvw5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
 shape = SubResource("BoxShape3D_xln6f")
