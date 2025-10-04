@@ -12,13 +12,13 @@ namespace SpaceBallZ
         [Export]
         private bool _isReversed = false;
 
-        [Export]
+        [Export(PropertyHint.Range, "-1,0,")]
         private float _minYDeviation = 0f;
-        [Export]
+        [Export(PropertyHint.Range, "0,1,")]
         private float _maxYDeviation = 0f;
-        [Export]
+        [Export(PropertyHint.Range, "-1,0,")]
         private float _minXDeviation = 0f;
-        [Export]
+        [Export(PropertyHint.Range, "0,1,")]
         private float _maxXDeviation = 0f;
 
         [Export]

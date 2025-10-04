@@ -10,19 +10,17 @@
 
 [node name="Default_scene 3D" type="Node3D"]
 
-[node name="AbstractArena" parent="." node_paths=PackedStringArray("ScoringSurfaceTeam1", "ScoringSurfaceTeam2") instance=ExtResource("1_mc1mh")]
+[node name="AbstractArena" parent="." instance=ExtResource("1_mc1mh")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 20, 0, 0, 0)
-ScoringSurfaceTeam1 = []
-ScoringSurfaceTeam2 = []
 
 [node name="ShootPoint" type="Marker3D" parent="." node_paths=PackedStringArray("_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5221)
 script = ExtResource("2_arvg4")
 _ballScene = ExtResource("3_olgv6")
-_minYDeviation = -3.0
-_maxYDeviation = 3.0
-_minXDeviation = -3.0
-_maxXDeviation = 3.0
+_minYDeviation = -0.5
+_maxYDeviation = 0.5
+_minXDeviation = -0.5
+_maxXDeviation = 0.5
 _manager = NodePath("../Manager")
 
 [node name="Manager" type="Node" parent="." node_paths=PackedStringArray("_arena", "_shootPoint", "Team1ScoreLabel", "Team2ScoreLabel", "_playerSpawner")]
