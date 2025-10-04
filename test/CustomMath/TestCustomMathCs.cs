@@ -1,19 +1,23 @@
 
 using GdUnit4;
-using Godot;
-
 using static GdUnit4.Assertions;
+
+// using Godot;
+
+using static CustomMath.CustomMath;
+
 
 
 [TestSuite]
 public class TestCustomMathCs
 {
-	private GodotObject CustomMath = (GodotObject)GD.Load<GDScript>("res://components/math.gd").New();
+	// private GodotObject CustomMath = (GodotObject)GD.Load<GDScript>("res://components/math.gd").New();
+	
 
 	[TestCase]
 	public void InRange() {
 		bool inRange;
-		inRange = (bool)CustomMath.Call("is_in_range", [1, 0, 2] );
+		inRange = IsInRange(1, 0, 2);
 		AssertBool(inRange).IsTrue();
 	}
 
