@@ -84,13 +84,9 @@ namespace SpaceBallZ
 
 		private void OnPlayerSpawned(Player playerInstance)
 		{
-			// SetPlayerCamera(playerInstance);
 			playerInstance.Ready += () => SetPlayerCamera(playerInstance);
 		}
 
-		private async Task SetPlayerCamera(Player playerInstance)
-		{
-			await ToSignal(_playerSpawner, Player.SignalName.Ready);
 		private void SetPlayerCamera(Player playerInstance)
 		{
 			if (Multiplayer.IsServer()) return;
