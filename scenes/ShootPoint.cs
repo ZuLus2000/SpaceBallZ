@@ -25,7 +25,7 @@ namespace SpaceBallZ
         private Manager _manager;
 
         [Export]
-        private float _initialSpeed = 1f;
+        private float _initialSpeed = 0.1f;
 
         [Signal]
         public delegate void BallSpawnedEventHandler(Ball BallInstance);
@@ -38,7 +38,7 @@ namespace SpaceBallZ
             Ball ballInstance = _ballScene.Instantiate() as Ball;
             ballInstance.LinearVelocity = GetRandVector();
 			ballInstance.Speed = _initialSpeed;
-			GetParent().AddChild(ballInstance);
+			GetParent().CallDeferred(Node.MethodName.AddChild, ballInstance);
 			EmitSignal(SignalName.BallSpawned, ballInstance);
         }
 
@@ -56,7 +56,6 @@ namespace SpaceBallZ
             _minXDeviation = Mathf.Min(_minXDeviation, temp_x);
 
 			RandomNumberGenerator rng = new RandomNumberGenerator();
-			rng.Randf();
 			float yAxisAngle = (_maxYDeviation - _minYDeviation) * rng.Randf() + _minYDeviation;
 			float xAxisAngle = (_maxXDeviation - _minXDeviation) * rng.Randf() + _minXDeviation;
 

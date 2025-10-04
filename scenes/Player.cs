@@ -14,7 +14,7 @@ namespace SpaceBallZ
 
         private Camera3D _playerCamera;
 
-        private bool _xInverted = false;
+        public bool XInverted = false;
         public Vector3 DefaultCoordinates;
         public Vector3 DesiredDirection = Vector3.Zero;
 
@@ -35,7 +35,7 @@ namespace SpaceBallZ
         {
             if (!IsMultiplayerAuthority()) return;
             Vector3 moveDirection = DesiredDirection;
-            if (_xInverted) moveDirection *= -1;
+            if (XInverted) moveDirection.X *= -1;
             if (_useFloatingPhysics)
             {
                 ApplyInputForce(moveDirection * _moveSpeed);

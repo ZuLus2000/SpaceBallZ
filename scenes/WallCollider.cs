@@ -2,7 +2,7 @@ using Godot;
 
 namespace SpaceBallZ
 {
-    public partial class WallCollider : Node3D
+    public partial class WallCollider : Area3D
     {
         [Export]
         private bool IsScoring = false;

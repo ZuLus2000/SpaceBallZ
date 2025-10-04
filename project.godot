@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NetworkHandler="*res://components/network_handler.gd"
+NetworkHandler="*res://components/NetworkHandler.cs"
 
 [dotnet]
 

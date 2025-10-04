@@ -13,7 +13,7 @@ namespace SpaceBallZ
         {
 			LinearVelocity = LinearVelocity.Normalized() * Speed;
 			KinematicCollision3D collision = MoveAndCollide(LinearVelocity);
-			if (collision.GetType() != null) 
+			if (collision != null) 
 			{
 				Vector3 bounceVelocity = LinearVelocity.Bounce(collision.GetNormal()) * 1;
 			float newZ = (float) Unclamp(bounceVelocity.Z, -StraightAngleMargin, StraightAngleMargin);
