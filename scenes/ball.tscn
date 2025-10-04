@@ -19,7 +19,8 @@ _surfaces = [{
 }]
 
 [node name="Ball" type="RigidBody3D"]
-collision_mask = 12
+collision_layer = 9
+collision_mask = 4
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 10
