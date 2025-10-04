@@ -18,7 +18,7 @@ class CustomMath
 
     static public double Unclamp(double value, double min, double max)
     {
-        if (IsInRange(value, min, max)) return value;
+        if (!IsInRange(value, min, max)) return value;
         double diffMedian = (max - min) / 2 + min;
         if (value == diffMedian)
         {
