@@ -26,8 +26,9 @@ namespace SpaceBallZ
         [Export]
         private PlayerSpawner _playerSpawner;
 
+        public bool DebugMode = false;
 
-        protected Player ControlledPlayer = null;
+        public Player ControlledPlayer { get; private set; }
 
         private Ball _scoringBall;
 
@@ -44,15 +45,15 @@ namespace SpaceBallZ
             }
         }
 
-        public  override void _Ready()
+        public override void _Ready()
         {
             CheckIfAllValuesSet();
-			// _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
-			_playerSpawner.PlayerSpawned += OnPlayerSpawned;
-
-			_arena.TeamScore += Scored;
-			_shootPoint.BallSpawned += setScoringBall;
-			_shootPoint.SpawnBall();
+            // _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
+            ControlledPlayer = null;
+            _playerSpawner.PlayerSpawned += OnPlayerSpawned;
+            _arena.TeamScore += Scored;
+            _shootPoint.BallSpawned += setScoringBall;
+            _shootPoint.SpawnBall();
         }
 
         private void UpdateScores()
@@ -77,33 +78,39 @@ namespace SpaceBallZ
             }
             else if (teamId == 2)
             {
-                GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2); }
-			_scoringBall.QueueFree();
-			_shootPoint.SpawnBall();
+                GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2);
+            }
+            _scoringBall.QueueFree();
+            _shootPoint.SpawnBall();
         }
 
-		private void OnPlayerSpawned(Player playerInstance)
-		{
-			playerInstance.Ready += () => SetPlayerCamera(playerInstance);
-		}
+        private void OnPlayerSpawned(Player playerInstance)
+        {
+            playerInstance.Ready += () => SetPlayerCamera(playerInstance);
+        }
 
-		private void SetPlayerCamera(Player playerInstance)
-		{
-			if (Multiplayer.IsServer()) return;
-			bool isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
-			GD.Print("Under my: " + isSpawnedPlayerUnderMyControl.ToString());
-			GD.Print("Is null: " + (ControlledPlayer == null).ToString());
-			if (ControlledPlayer == null && isSpawnedPlayerUnderMyControl)
-			{
-				ControlledPlayer = playerInstance;
-				playerInstance.SetupCamera(true);
-			}
-		}
+        private void SetPlayerCamera(Player playerInstance)
+        {
+            bool isSpawnedPlayerUnderMyControl;
+            if (DebugMode) isSpawnedPlayerUnderMyControl = true;
+            else
+            {
+                if (Multiplayer.IsServer()) return;
+                isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
+                GD.Print("Under my: " + isSpawnedPlayerUnderMyControl.ToString());
+                GD.Print("Is null: " + (ControlledPlayer == null).ToString());
+            }
+            if (ControlledPlayer == null && isSpawnedPlayerUnderMyControl)
+            {
+                ControlledPlayer = playerInstance;
+                playerInstance.SetupCamera(true);
+            }
+        }
 
-		private void setScoringBall(Ball ball) 
-		{
-			_scoringBall = ball;
-		}
+        private void setScoringBall(Ball ball)
+        {
+            _scoringBall = ball;
+        }
 
     }
 }
