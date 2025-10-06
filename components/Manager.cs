@@ -10,9 +10,7 @@ namespace SpaceBallZ
     public partial class Manager : Node
     {
 
-        static Manager ManagerInstance = new Manager();
-
-
+        public static Manager ManagerInstance{ get; private set;}
         [Export]
         private AbstractArena _arena;
         [Export]
@@ -48,6 +46,7 @@ namespace SpaceBallZ
         public override void _Ready()
         {
             CheckIfAllValuesSet();
+			ManagerInstance = this;
             // _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
             ControlledPlayer = null;
             _playerSpawner.PlayerSpawned += OnPlayerSpawned;
@@ -92,13 +91,11 @@ namespace SpaceBallZ
         private void SetPlayerCamera(Player playerInstance)
         {
             bool isSpawnedPlayerUnderMyControl;
-            if (DebugMode) isSpawnedPlayerUnderMyControl = true;
+            if (DebugMode) isSpawnedPlayerUnderMyControl = Int32.Parse(playerInstance.Name) > 0;
             else
             {
                 if (Multiplayer.IsServer()) return;
                 isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
-                GD.Print("Under my: " + isSpawnedPlayerUnderMyControl.ToString());
-                GD.Print("Is null: " + (ControlledPlayer == null).ToString());
             }
             if (ControlledPlayer == null && isSpawnedPlayerUnderMyControl)
             {
