@@ -52,7 +52,6 @@ namespace SpaceBallZ
             _playerSpawner.PlayerSpawned += OnPlayerSpawned;
             _arena.TeamScore += Scored;
             _shootPoint.BallSpawned += setScoringBall;
-            _shootPoint.SpawnBall();
         }
 
         private void UpdateScores()
@@ -80,7 +79,6 @@ namespace SpaceBallZ
                 GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2);
             }
             _scoringBall.QueueFree();
-            _shootPoint.SpawnBall();
         }
 
         private void OnPlayerSpawned(Player playerInstance)
@@ -94,9 +92,10 @@ namespace SpaceBallZ
             if (DebugMode) isSpawnedPlayerUnderMyControl = Int32.Parse(playerInstance.Name) > 0;
             else
             {
-                if (Multiplayer.IsServer()) return;
+                if (NetworkHandler.IsServer()) return;
                 isSpawnedPlayerUnderMyControl = Multiplayer.MultiplayerPeer.GetUniqueId() == playerInstance.GetMultiplayerAuthority();
             }
+
             if (ControlledPlayer == null && isSpawnedPlayerUnderMyControl)
             {
                 ControlledPlayer = playerInstance;
@@ -108,6 +107,13 @@ namespace SpaceBallZ
         {
             _scoringBall = ball;
         }
+		
+		private void OnSpawnBtnPressed()
+		{
+			bool isHost = NetworkHandler.IsHost();
+			bool isServer = NetworkHandler.IsServer();
+			if ((isHost || isServer) && _scoringBall == null) _shootPoint.SpawnBall();
+		}
 
     }
 }
