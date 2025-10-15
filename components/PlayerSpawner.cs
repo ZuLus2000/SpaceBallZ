@@ -27,7 +27,6 @@ namespace SpaceBallZ
 
         public Node SpawnFunctionOverride(Dictionary spawnData)
         {
-            GD.Print("Spawn Attempt");
             Player player = SceneToSpawn.Instantiate() as Player;
             player.Name = spawnData["id"].ToString();
             player.DefaultCoordinates = (Vector3)spawnData["defaultCoordinates"];
@@ -44,7 +43,7 @@ namespace SpaceBallZ
             if (!DebugMode)
             {
                 // production environment
-                if (!Multiplayer.IsServer()) return;
+                if (!NetworkHandler.IsServer()) return;
 
                 GD.Print("Connected: " + id.ToString());
                 GD.Print("Peers: " + string.Join(",", Multiplayer.GetPeers()));

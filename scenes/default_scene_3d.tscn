@@ -17,11 +17,13 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 20, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5221)
 script = ExtResource("2_arvg4")
 _ballScene = ExtResource("3_olgv6")
+_isReversed = null
 _minYDeviation = -0.5
 _maxYDeviation = 0.5
 _minXDeviation = -0.5
 _maxXDeviation = 0.5
 _manager = NodePath("../Manager")
+_initialSpeed = null
 
 [node name="Manager" type="Node" parent="." node_paths=PackedStringArray("_arena", "_shootPoint", "Team1ScoreLabel", "Team2ScoreLabel", "_playerSpawner")]
 script = ExtResource("4_4eqjf")
@@ -95,6 +97,10 @@ placeholder_text = "ip here"
 layout_mode = 2
 text = "Client"
 
+[node name="HostBtn" type="Button" parent="CanvasLayer/Control/NetworkButtons/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
 [node name="Player1Spawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.5573)
 
@@ -106,3 +112,4 @@ transform = Transform3D(0.808067, -0.193538, 0.556392, -0.0453846, 0.921231, 0.3
 
 [connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ServerBtn" to="CanvasLayer/Control/NetworkButtons" method="OnServerBtnPressed"]
 [connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ClientBtn" to="CanvasLayer/Control/NetworkButtons" method="OnClientBtnPressed"]
+[connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/HostBtn" to="CanvasLayer/Control/NetworkButtons" method="OnHostBtnPressed"]
