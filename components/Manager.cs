@@ -22,7 +22,7 @@ namespace SpaceBallZ
         private Label Team2ScoreLabel;
 
         [Export]
-        private PlayerSpawner _playerSpawner;
+        private MultiplayerObjectSpawner _playerSpawner;
 
         public bool DebugMode = false;
 

@@ -38,7 +38,7 @@ public class TestCameraControl
     public async Task TestCameraControlOnFirstPlayerJoined()
     {
 		// Setup
-        PlayerSpawner spawner = (PlayerSpawner)runner.FindChild("PlayerSpawner");
+        MultiplayerObjectSpawner spawner = (MultiplayerObjectSpawner)runner.FindChild("MultiplayerObjectSpawner");
         Manager manager = (Manager)runner.FindChild("Manager");
         AssertBool(runner.Scene().IsNodeReady()).IsTrue();
         AssertBool(manager.IsNodeReady()).IsTrue();

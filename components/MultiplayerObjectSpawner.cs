@@ -3,7 +3,7 @@ using Godot.Collections;
 
 namespace SpaceBallZ
 {
-    public partial class PlayerSpawner : MultiplayerSpawner
+    public partial class MultiplayerObjectSpawner: MultiplayerSpawner
     {
         [Export]
         private PackedScene SceneToSpawn;

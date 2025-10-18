@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cddweoveim3y4" path="res://scenes/ShootPoint.cs" id="2_arvg4"]
 [ext_resource type="PackedScene" uid="uid://eqpgqr2j5i4j" path="res://scenes/ball.tscn" id="3_olgv6"]
 [ext_resource type="Script" uid="uid://djhqeggdein8l" path="res://components/Manager.cs" id="4_4eqjf"]
-[ext_resource type="Script" uid="uid://dqte0u6o5e4p7" path="res://components/PlayerSpawner.cs" id="5_8j3wy"]
+[ext_resource type="Script" uid="uid://dqte0u6o5e4p7" path="res://components/MultiplayerObjectSpawner.cs" id="5_8j3wy"]
 [ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="6_olgv6"]
 [ext_resource type="Script" uid="uid://dkomwwgb373kk" path="res://components/NetworkButtons.cs" id="7_olgv6"]
 
@@ -29,12 +29,12 @@ _initialSpeed = null
 script = ExtResource("4_4eqjf")
 _arena = NodePath("../AbstractArena")
 _shootPoint = NodePath("../ShootPoint")
-Team1ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
-Team2ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
-_playerSpawner = NodePath("../PlayerSpawner")
+Team1ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer/TeamOneScore")
+Team2ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer/TeamTwoScore")
+_playerSpawner = NodePath("../MultiplayerObjectSpawner")
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("Player1SpawnPoint", "Player2SpawnPoint")]
-_spawnable_scenes = PackedStringArray("uid://u33w8gk7atac")
+[node name="MultiplayerObjectSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("Player1SpawnPoint", "Player2SpawnPoint")]
+_spawnable_scenes = PackedStringArray("uid://u33w8gk7atac", "uid://eqpgqr2j5i4j")
 spawn_path = NodePath("..")
 script = ExtResource("5_8j3wy")
 SceneToSpawn = ExtResource("6_olgv6")
