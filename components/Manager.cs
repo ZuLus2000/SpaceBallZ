@@ -79,6 +79,7 @@ namespace SpaceBallZ
                 GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2);
             }
             _scoringBall.QueueFree();
+			_scoringBall = null;
         }
 
         private void OnPlayerSpawned(Player playerInstance)

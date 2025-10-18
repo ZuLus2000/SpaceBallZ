@@ -23,7 +23,6 @@ _maxYDeviation = 0.5
 _minXDeviation = -0.5
 _maxXDeviation = 0.5
 _manager = NodePath("../Manager")
-_initialSpeed = null
 
 [node name="Manager" type="Node" parent="." node_paths=PackedStringArray("_arena", "_shootPoint", "Team1ScoreLabel", "Team2ScoreLabel", "_playerSpawner")]
 script = ExtResource("4_4eqjf")
@@ -40,6 +39,9 @@ script = ExtResource("5_8j3wy")
 SceneToSpawn = ExtResource("6_olgv6")
 Player1SpawnPoint = NodePath("../Player1Spawn")
 Player2SpawnPoint = NodePath("../Player2Spawn")
+_spawnable_scene_count = 2
+scenes/0 = "uid://u33w8gk7atac"
+scenes/1 = "uid://eqpgqr2j5i4j"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -57,20 +59,26 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
 layout_mode = 2
 
-[node name="TeamOneScore" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TeamOneScore" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
 
-[node name="Centre" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="Centre" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = ":"
 
-[node name="TeamTwoScore" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="TeamTwoScore" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
+
+[node name="SpawnBtn" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="NetworkButtons" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -110,6 +118,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.167721)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.808067, -0.193538, 0.556392, -0.0453846, 0.921231, 0.386359, -0.58734, -0.337456, 0.735632, 5.76827, 6.3475, 20.3334)
 
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/SpawnBtn" to="Manager" method="OnSpawnBtnPressed"]
 [connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ServerBtn" to="CanvasLayer/Control/NetworkButtons" method="OnServerBtnPressed"]
 [connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/ClientBtn" to="CanvasLayer/Control/NetworkButtons" method="OnClientBtnPressed"]
 [connection signal="pressed" from="CanvasLayer/Control/NetworkButtons/VBoxContainer/HostBtn" to="CanvasLayer/Control/NetworkButtons" method="OnHostBtnPressed"]

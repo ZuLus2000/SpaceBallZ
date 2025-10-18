@@ -11,6 +11,7 @@ namespace SpaceBallZ
 
         public override void _PhysicsProcess(double delta)
         {
+			if (!(NetworkHandler.IsHost() || NetworkHandler.IsServer())) return;
             LinearVelocity = LinearVelocity.Normalized() * Speed;
             KinematicCollision3D collision = MoveAndCollide(LinearVelocity);
             if (collision != null)
