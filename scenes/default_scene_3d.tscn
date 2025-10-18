@@ -39,9 +39,6 @@ script = ExtResource("5_8j3wy")
 SceneToSpawn = ExtResource("6_olgv6")
 Player1SpawnPoint = NodePath("../Player1Spawn")
 Player2SpawnPoint = NodePath("../Player2Spawn")
-_spawnable_scene_count = 2
-scenes/0 = "uid://u33w8gk7atac"
-scenes/1 = "uid://eqpgqr2j5i4j"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -110,10 +107,10 @@ layout_mode = 2
 text = "Host"
 
 [node name="Player1Spawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.524757)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
 
 [node name="Player2Spawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.167721)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.808067, -0.193538, 0.556392, -0.0453846, 0.921231, 0.386359, -0.58734, -0.337456, 0.735632, 5.76827, 6.3475, 20.3334)
