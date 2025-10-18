@@ -21,7 +21,7 @@ namespace SpaceBallZ
         public override void _Ready()
         {
             SpawnFunction = new Callable(this, MethodName.SpawnFunctionOverride);
-            Multiplayer.PeerConnected += SpawnPlayer;
+            NetworkHandler.Instance.PeerConnected += SpawnPlayer;
         }
 
 
@@ -43,7 +43,7 @@ namespace SpaceBallZ
             if (!DebugMode)
             {
                 // production environment
-                if (!NetworkHandler.IsServer()) return;
+                if (!(NetworkHandler.IsServer() || NetworkHandler.IsHost())) return;
 
                 GD.Print("Connected: " + id.ToString());
                 GD.Print("Peers: " + string.Join(",", Multiplayer.GetPeers()));
@@ -55,12 +55,12 @@ namespace SpaceBallZ
 
 
             Marker3D spawnPoint;
-            bool invertDirection = peerCount == 1;
-            if (peerCount == 1) spawnPoint = Player1SpawnPoint;
-            else if (peerCount == 2) spawnPoint = Player2SpawnPoint;
+			int isHost = NetworkHandler.IsHost() ? 1 : 0; // HACK: If it works - it WORKS
+            bool invertDirection = peerCount == 1 - isHost;
+            if (peerCount == 1 - isHost) spawnPoint = Player1SpawnPoint;
+            else if (peerCount == 2 - isHost) spawnPoint = Player2SpawnPoint;
             else return;
 
-            GD.Print("Spawn Attempt");
             Dictionary dic = new Dictionary();
             dic["id"] = id;
             dic["defaultCoordinates"] = spawnPoint.Position;

@@ -16,11 +16,15 @@ public partial class NetworkHandler: Node
 
 	public ENetMultiplayerPeer _peer;
 
+	[Signal]
+	public delegate void PeerConnectedEventHandler(long id);
+
 
     public override void _Ready()
     {
 		Instance = this;
 		CurrentNetworkSate = NetworkSate.CLIENT;
+		Multiplayer.PeerConnected += (id) => EmitSignal(NetworkHandler.SignalName.PeerConnected, id);
     }
 
 	public static bool IsServer() { return Instance.CurrentNetworkSate == NetworkSate.SERVER; }
@@ -61,7 +65,7 @@ public partial class NetworkHandler: Node
 		_peer.CreateServer(Port);
 		Multiplayer.MultiplayerPeer = _peer;
 		CurrentNetworkSate = NetworkSate.HOST;
-		EmitSignal(MultiplayerApi.SignalName.PeerConnected, 1);
+		EmitSignal(NetworkHandler.SignalName.PeerConnected, 1);
 	}
 
 }
