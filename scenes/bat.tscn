@@ -1,18 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://byph5knwx6feb"]
 
-[ext_resource type="Texture2D" uid="uid://y4l837jnvmmk" path="res://plate.png" id="1_uhqni"]
+[ext_resource type="Texture2D" uid="uid://cafaosik2aym7" path="res://icon.svg" id="1_uhqni"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cnldk"]
 size = Vector3(1, 1, 0.0869141)
 
 [node name="Bat" type="CharacterBody3D"]
-collision_layer = 12
+collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_cnldk")
 
 [node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
-transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0, 0, 0)
-modulate = Color(1, 1, 1, 0.129412)
 texture = ExtResource("1_uhqni")

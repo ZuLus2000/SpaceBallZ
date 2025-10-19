@@ -1,26 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://u33w8gk7atac"]
+[gd_scene load_steps=6 format=3 uid="uid://u33w8gk7atac"]
 
-[ext_resource type="Texture2D" uid="uid://cafaosik2aym7" path="res://icon.svg" id="1_3vyb7"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_cnldk"]
-size = Vector3(1, 1, 0.0869141)
+[ext_resource type="PackedScene" uid="uid://byph5knwx6feb" path="res://scenes/bat.tscn" id="1_g2els"]
+[ext_resource type="Script" uid="uid://bii2xrmsd3qlx" path="res://scenes/Player.cs" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://miqxa0kddb3s" path="res://components/InputControls.cs" id="3_dqkch"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f0re4"]
+size = Vector3(1, 1, 0.5)
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="RigidBody3D"]
+transform = Transform3D(0.999995, 0.0032114, 0, -0.0032114, 0.999995, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 0
+collision_mask = 4
 axis_lock_linear_z = true
-
-[node name="Bat" type="CharacterBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Bat"]
-shape = SubResource("BoxShape3D_cnldk")
-
-[node name="Sprite3D" type="Sprite3D" parent="Bat/CollisionShape3D"]
-texture = ExtResource("1_3vyb7")
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+script = ExtResource("1_qhqgy")
+_moveSpeed = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.105, -4.88944e-11, 0, 4.88944e-11, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
 shape = SubResource("BoxShape3D_f0re4")
-disabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-current = true
+[node name="PlayerCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+fov = 103.8
+
+[node name="Bat" parent="." instance=ExtResource("1_g2els")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+collision_layer = 8
+motion_mode = 1
+
+[node name="Controls" type="Node" parent="."]
+script = ExtResource("3_dqkch")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qhqgy")
