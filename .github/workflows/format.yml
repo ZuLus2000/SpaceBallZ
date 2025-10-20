@@ -2,9 +2,6 @@ name: csharp format
 
 on:
   push:
-    paths:
-      - "**.cs"
-      - ".editorconfig"
 
 jobs:
   check-format:
