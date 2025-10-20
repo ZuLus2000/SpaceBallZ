@@ -17,7 +17,6 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 20, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5221)
 script = ExtResource("2_arvg4")
 _ballScene = ExtResource("3_olgv6")
-_isReversed = null
 _minYDeviation = -0.5
 _maxYDeviation = 0.5
 _minXDeviation = -0.5
@@ -76,6 +75,7 @@ text = "0"
 
 [node name="SpawnBtn" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
+text = "SpawnBall"
 
 [node name="NetworkButtons" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -111,7 +111,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
 
 [node name="Player2Spawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.808067, -0.193538, 0.556392, -0.0453846, 0.921231, 0.386359, -0.58734, -0.337456, 0.735632, 5.76827, 6.3475, 20.3334)
