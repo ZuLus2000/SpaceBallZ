@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmuwengyl4oxm"]
+[gd_scene load_steps=9 format=3 uid="uid://bmuwengyl4oxm"]
 
 [ext_resource type="PackedScene" uid="uid://be82ywiel2vd2" path="res://scenes/abstract_arena.tscn" id="1_mc1mh"]
 [ext_resource type="Script" uid="uid://cddweoveim3y4" path="res://scenes/ShootPoint.cs" id="2_arvg4"]
@@ -7,6 +7,14 @@
 [ext_resource type="Script" uid="uid://dqte0u6o5e4p7" path="res://components/MultiplayerObjectSpawner.cs" id="5_8j3wy"]
 [ext_resource type="PackedScene" uid="uid://u33w8gk7atac" path="res://scenes/player.tscn" id="6_olgv6"]
 [ext_resource type="Script" uid="uid://dkomwwgb373kk" path="res://components/NetworkButtons.cs" id="7_olgv6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_olgv6"]
+properties/0/path = NodePath("TeamOneScore:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("TeamTwoScore:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Default_scene 3D" type="Node3D"]
 
@@ -60,6 +68,7 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="TeamOneScore" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -72,6 +81,9 @@ text = ":"
 [node name="TeamTwoScore" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
+
+[node name="ScoreSyncroniser" type="MultiplayerSynchronizer" parent="CanvasLayer/Control/PanelContainer/VBoxContainer/HBoxContainer"]
+replication_config = SubResource("SceneReplicationConfig_olgv6")
 
 [node name="SpawnBtn" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
