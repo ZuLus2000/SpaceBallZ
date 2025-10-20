@@ -50,10 +50,11 @@ namespace SpaceBallZ
             // _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
             ControlledPlayer = null;
             _playerSpawner.PlayerSpawned += OnPlayerSpawned;
-            _arena.TeamScore += Scored;
+			NetworkHandler.Instance.StateChanged += onStateChanged;
             _shootPoint.BallSpawned += setScoringBall;
         }
 
+		private void onStateChanged(int newState) { if (isServerHost()) _arena.TeamScore += Scored; }
         private void UpdateScores()
         {
             Team1ScoreLabel.Text = _scoreTeam1.ToString();
@@ -76,7 +77,7 @@ namespace SpaceBallZ
             }
             else if (teamId == 2)
             {
-                GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2);
+                GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 1);
             }
             _scoringBall.QueueFree();
             _scoringBall = null;
@@ -104,16 +105,13 @@ namespace SpaceBallZ
             }
         }
 
-        private void setScoringBall(Ball ball)
-        {
-            _scoringBall = ball;
-        }
+        private void setScoringBall(Ball ball) { _scoringBall = ball; }
+
+        private bool isServerHost() { return NetworkHandler.IsHost() || NetworkHandler.IsServer(); }
 
         private void OnSpawnBtnPressed()
         {
-            bool isHost = NetworkHandler.IsHost();
-            bool isServer = NetworkHandler.IsServer();
-            if ((isHost || isServer) && _scoringBall == null) _shootPoint.SpawnBall();
+            if ((isServerHost()) && _scoringBall == null) _shootPoint.SpawnBall();
         }
 
     }
