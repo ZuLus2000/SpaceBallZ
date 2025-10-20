@@ -5,7 +5,7 @@ on:
 
 jobs:
   check-format:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Setup .NET Core
