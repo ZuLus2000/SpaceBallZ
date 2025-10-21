@@ -37,9 +37,9 @@ namespace SpaceBallZ
         {
             Ball ballInstance = _ballScene.Instantiate() as Ball;
             ballInstance.LinearVelocity = GetRandVector();
-			ballInstance.Speed = _initialSpeed;
-			GetParent().CallDeferred(Node.MethodName.AddChild, ballInstance);
-			EmitSignal(SignalName.BallSpawned, ballInstance);
+            ballInstance.Speed = _initialSpeed;
+            GetParent().CallDeferred(Node.MethodName.AddChild, ballInstance);
+            EmitSignal(SignalName.BallSpawned, ballInstance);
         }
 
         private Vector3 GetRandVector()
@@ -55,11 +55,11 @@ namespace SpaceBallZ
             _maxXDeviation = Mathf.Max(_minXDeviation, _maxXDeviation);
             _minXDeviation = Mathf.Min(_minXDeviation, temp_x);
 
-			RandomNumberGenerator rng = new RandomNumberGenerator();
-			float yAxisAngle = (_maxYDeviation - _minYDeviation) * rng.Randf() + _minYDeviation;
-			float xAxisAngle = (_maxXDeviation - _minXDeviation) * rng.Randf() + _minXDeviation;
+            RandomNumberGenerator rng = new RandomNumberGenerator();
+            float yAxisAngle = (_maxYDeviation - _minYDeviation) * rng.Randf() + _minYDeviation;
+            float xAxisAngle = (_maxXDeviation - _minXDeviation) * rng.Randf() + _minXDeviation;
 
-			return new Vector3(xAxisAngle, yAxisAngle, zReverseMult).Normalized();
+            return new Vector3(xAxisAngle, yAxisAngle, zReverseMult).Normalized();
         }
 
     }

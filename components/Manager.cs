@@ -10,7 +10,7 @@ namespace SpaceBallZ
     public partial class Manager : Node
     {
 
-        public static Manager ManagerInstance{ get; private set;}
+        public static Manager ManagerInstance { get; private set; }
         [Export]
         private AbstractArena _arena;
         [Export]
@@ -46,7 +46,7 @@ namespace SpaceBallZ
         public override void _Ready()
         {
             CheckIfAllValuesSet();
-			ManagerInstance = this;
+            ManagerInstance = this;
             // _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
             ControlledPlayer = null;
             _playerSpawner.PlayerSpawned += OnPlayerSpawned;
@@ -79,7 +79,7 @@ namespace SpaceBallZ
                 GD.Print("Team 2 scored!"); ChangeScores(Team.Team2, 2);
             }
             _scoringBall.QueueFree();
-			_scoringBall = null;
+            _scoringBall = null;
         }
 
         private void OnPlayerSpawned(Player playerInstance)
@@ -108,13 +108,13 @@ namespace SpaceBallZ
         {
             _scoringBall = ball;
         }
-		
-		private void OnSpawnBtnPressed()
-		{
-			bool isHost = NetworkHandler.IsHost();
-			bool isServer = NetworkHandler.IsServer();
-			if ((isHost || isServer) && _scoringBall == null) _shootPoint.SpawnBall();
-		}
+
+        private void OnSpawnBtnPressed()
+        {
+            bool isHost = NetworkHandler.IsHost();
+            bool isServer = NetworkHandler.IsServer();
+            if ((isHost || isServer) && _scoringBall == null) _shootPoint.SpawnBall();
+        }
 
     }
 }

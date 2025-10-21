@@ -21,13 +21,13 @@ namespace SpaceBallZ
         {
             foreach (WallCollider wall in ScoringSurfaceTeam1)
             {
-				wall.BodyEntered += (_body) => teamScore(1);
+                wall.BodyEntered += (_body) => teamScore(1);
             }
             foreach (WallCollider wall in ScoringSurfaceTeam2)
             {
-				wall.BodyEntered += (_body) => teamScore(2);
+                wall.BodyEntered += (_body) => teamScore(2);
             }
-		}
+        }
 
 
     }

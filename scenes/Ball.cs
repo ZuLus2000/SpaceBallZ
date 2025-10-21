@@ -11,14 +11,14 @@ namespace SpaceBallZ
 
         public override void _PhysicsProcess(double delta)
         {
-			if (!(NetworkHandler.IsHost() || NetworkHandler.IsServer())) return;
+            if (!(NetworkHandler.IsHost() || NetworkHandler.IsServer())) return;
             LinearVelocity = LinearVelocity.Normalized() * Speed;
             KinematicCollision3D collision = MoveAndCollide(LinearVelocity);
             if (collision != null)
             {
                 Vector3 bounceVelocity = LinearVelocity.Bounce(collision.GetNormal()) * 1;
                 double newZ = Unclamp(bounceVelocity.Z, -StraightAngleMargin, StraightAngleMargin);
-                bounceVelocity.Z = (float) newZ;
+                bounceVelocity.Z = (float)newZ;
                 LinearVelocity = bounceVelocity;
             }
         }
