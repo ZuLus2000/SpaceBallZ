@@ -50,11 +50,11 @@ namespace SpaceBallZ
             // _playerSpawner.Connect(PlayerSpawner.SignalName.PlayerSpawned, Callable.From<Player>(SetPlayerCamera));
             ControlledPlayer = null;
             _playerSpawner.PlayerSpawned += OnPlayerSpawned;
-			NetworkHandler.Instance.StateChanged += onStateChanged;
+            NetworkHandler.Instance.StateChanged += onStateChanged;
             _shootPoint.BallSpawned += setScoringBall;
         }
 
-		private void onStateChanged(int newState) { if (isServerHost()) _arena.TeamScore += Scored; }
+        private void onStateChanged(int newState) { if (isServerHost()) _arena.TeamScore += Scored; }
         private void UpdateScores()
         {
             Team1ScoreLabel.Text = _scoreTeam1.ToString();

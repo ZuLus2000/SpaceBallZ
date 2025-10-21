@@ -19,8 +19,8 @@ public partial class NetworkHandler : Node
     [Signal]
     public delegate void PeerConnectedEventHandler(long id);
 
-	[Signal]
-	public delegate void StateChangedEventHandler(int newState);
+    [Signal]
+    public delegate void StateChangedEventHandler(int newState);
 
     public override void _Ready()
     {
@@ -37,41 +37,42 @@ public partial class NetworkHandler : Node
 
     public static void CreateClient() { Instance.createClient(); }
 
-	public static void CreateHost() { Instance.createHost(); }
-	
-	private void clearState() {
-		CurrentNetworkSate = NetworkSate.UNDEFINED;
-		_peer = null;
-		_peer = new ENetMultiplayerPeer();
-		EmitSignal(NetworkHandler.SignalName.StateChanged, (int) CurrentNetworkSate);
-	}
+    public static void CreateHost() { Instance.createHost(); }
 
-	private void createServer()
-	{
-		clearState();
-		_peer.CreateServer(Port);
-		Multiplayer.MultiplayerPeer = _peer;
-		CurrentNetworkSate = NetworkSate.SERVER;
-		EmitSignal(NetworkHandler.SignalName.StateChanged, (int) CurrentNetworkSate);
-	}
+    private void clearState()
+    {
+        CurrentNetworkSate = NetworkSate.UNDEFINED;
+        _peer = null;
+        _peer = new ENetMultiplayerPeer();
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
+    }
 
-	private void createClient()
-	{
-		clearState();
-		_peer.CreateClient(IpAdress, Port);
-		Multiplayer.MultiplayerPeer = _peer;
-		CurrentNetworkSate = NetworkSate.CLIENT;
-		EmitSignal(NetworkHandler.SignalName.StateChanged, (int) CurrentNetworkSate);
-	}
+    private void createServer()
+    {
+        clearState();
+        _peer.CreateServer(Port);
+        Multiplayer.MultiplayerPeer = _peer;
+        CurrentNetworkSate = NetworkSate.SERVER;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
+    }
 
-	private void createHost()
-	{
-		clearState();
-		_peer.CreateServer(Port);
-		Multiplayer.MultiplayerPeer = _peer;
-		CurrentNetworkSate = NetworkSate.HOST;
-		EmitSignal(NetworkHandler.SignalName.StateChanged, (int) CurrentNetworkSate);
-		EmitSignal(NetworkHandler.SignalName.PeerConnected, 1);
-	}
+    private void createClient()
+    {
+        clearState();
+        _peer.CreateClient(IpAdress, Port);
+        Multiplayer.MultiplayerPeer = _peer;
+        CurrentNetworkSate = NetworkSate.CLIENT;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
+    }
+
+    private void createHost()
+    {
+        clearState();
+        _peer.CreateServer(Port);
+        Multiplayer.MultiplayerPeer = _peer;
+        CurrentNetworkSate = NetworkSate.HOST;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
+        EmitSignal(NetworkHandler.SignalName.PeerConnected, 1);
+    }
 
 }
