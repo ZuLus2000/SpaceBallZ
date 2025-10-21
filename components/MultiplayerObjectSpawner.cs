@@ -3,7 +3,7 @@ using Godot.Collections;
 
 namespace SpaceBallZ
 {
-    public partial class MultiplayerObjectSpawner: MultiplayerSpawner
+    public partial class MultiplayerObjectSpawner : MultiplayerSpawner
     {
         [Export]
         private PackedScene SceneToSpawn;
@@ -55,7 +55,7 @@ namespace SpaceBallZ
 
 
             Marker3D spawnPoint;
-			int isHost = NetworkHandler.IsHost() ? 1 : 0; // HACK: If it works - it WORKS
+            int isHost = NetworkHandler.IsHost() ? 1 : 0; // HACK: If it works - it WORKS
             bool invertDirection = peerCount == 1 - isHost;
             if (peerCount == 1 - isHost) spawnPoint = Player1SpawnPoint;
             else if (peerCount == 2 - isHost) spawnPoint = Player2SpawnPoint;
