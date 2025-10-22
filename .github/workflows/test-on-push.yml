@@ -1,0 +1,23 @@
+name: test on push
+
+on:
+  push:
+
+jobs:
+  test-on-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        
+      - name: run-test
+        uses: MikeSchulze/gdunit4-action@v1
+        with:
+          godot-version: '4.2.1'
+          godot-net: true
+          paths: 'res://tests' 
