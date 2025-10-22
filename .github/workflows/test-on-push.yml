@@ -18,6 +18,6 @@ jobs:
       - name: run-test
         uses: MikeSchulze/gdunit4-action@v1
         with:
-          godot-version: '4.2.1'
+          godot-version: '4.5.0'
           godot-net: true
           paths: 'res://tests' 
