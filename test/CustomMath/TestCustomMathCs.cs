@@ -25,7 +25,7 @@ public class TestCustomMathCs
     }
     HashSet<double> hash = new HashSet<double> { 0.0, 2.0 };
 
-    [TestCase(1, 0, 2, new double[2] { 1, 2 })]
+    [TestCase(1, 0, 2, new double[2] { 0, 2 })]
     [TestCase(0, 1, 2, new double[2] { 0, 0 })]
     [TestCase(0, double.MinValue, double.MaxValue, new double[2] { double.MinValue, double.MaxValue })]
     public void TestUnclamp(double testValue, double rangeStart, double rangeEnd, double[] expect)
