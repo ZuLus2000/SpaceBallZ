@@ -7,15 +7,16 @@ jobs:
   test-on-push:
     runs-on: ubuntu-latest
     steps:
-
+          
+      - name: Check out code
+        uses: actions/checkout@v2
+        
       - name: run-test
         uses: MikeSchulze/gdunit4-action@v1
         with:
           godot-version: '4.5'
           godot-net: true
           paths: 'res://tests' 
-          
-      - name: Check out code
-        uses: actions/checkout@v2
+
         
 
