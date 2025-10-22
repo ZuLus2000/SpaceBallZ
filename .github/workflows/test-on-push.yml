@@ -19,7 +19,7 @@ jobs:
           retries: 3
           dotnet-version: 'net9.0'
           paths: 'res://tests' 
-          report-name: 'report.xml'
+          publish-report: 'false'
 
         
 
