@@ -19,6 +19,8 @@ public partial class NetworkHandler : Node
     [Signal]
     public delegate void PeerConnectedEventHandler(long id);
 
+    [Signal]
+    public delegate void StateChangedEventHandler(int newState);
 
     public override void _Ready()
     {
@@ -42,6 +44,7 @@ public partial class NetworkHandler : Node
         CurrentNetworkSate = NetworkSate.UNDEFINED;
         _peer = null;
         _peer = new ENetMultiplayerPeer();
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
     }
 
     private void createServer()
@@ -50,6 +53,7 @@ public partial class NetworkHandler : Node
         _peer.CreateServer(Port);
         Multiplayer.MultiplayerPeer = _peer;
         CurrentNetworkSate = NetworkSate.SERVER;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
     }
 
     private void createClient()
@@ -58,6 +62,7 @@ public partial class NetworkHandler : Node
         _peer.CreateClient(IpAdress, Port);
         Multiplayer.MultiplayerPeer = _peer;
         CurrentNetworkSate = NetworkSate.CLIENT;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
     }
 
     private void createHost()
@@ -66,6 +71,7 @@ public partial class NetworkHandler : Node
         _peer.CreateServer(Port);
         Multiplayer.MultiplayerPeer = _peer;
         CurrentNetworkSate = NetworkSate.HOST;
+        EmitSignal(NetworkHandler.SignalName.StateChanged, (int)CurrentNetworkSate);
         EmitSignal(NetworkHandler.SignalName.PeerConnected, 1);
     }
 
