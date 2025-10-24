@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ckayo4r6ma5js"]
+
+[ext_resource type="Script" uid="uid://dmkdn66gtobbw" path="res://data/resource/BallSpeedIncrease.cs" id="1_qkndw"]
+
+[resource]
+script = ExtResource("1_qkndw")
+_duration = 10
+_multiplySpeedValue = 2.0
