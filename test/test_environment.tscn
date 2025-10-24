@@ -29,9 +29,9 @@ _arena = NodePath("../AbstractArena")
 _shootPoint = NodePath("../ShootPoint")
 Team1ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamOneScore")
 Team2ScoreLabel = NodePath("../CanvasLayer/Control/PanelContainer/HBoxContainer/TeamTwoScore")
-_playerSpawner = NodePath("../PlayerSpawner")
+_playerSpawner = NodePath("../MultiplayerObjectSpawner")
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("Player1SpawnPoint", "Player2SpawnPoint")]
+[node name="MultiplayerObjectSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("Player1SpawnPoint", "Player2SpawnPoint")]
 _spawnable_scenes = PackedStringArray("uid://u33w8gk7atac")
 spawn_path = NodePath("..")
 script = ExtResource("5_ut5rl")

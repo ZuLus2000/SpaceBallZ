@@ -10,6 +10,7 @@ using SpaceBallZ;
 
 
 [TestSuite]
+[RequireGodotRuntime]
 public class TestCameraControl
 {
     private Godot.Collections.Dictionary _player1SpawnData = new Godot.Collections.Dictionary()
