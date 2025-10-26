@@ -30,22 +30,22 @@ namespace SpaceBallZ
             if (_area3D != null) _area3D.BodyEntered += onBodyEntered;
         }
 
-		protected void setRadius(float newRadius)
-		{
-                _radius = newRadius;
-                if (_collisionShape == null) return;
-                SphereShape3D shape = _collisionShape.Shape as SphereShape3D;
-                if (_meshInstance == null) return;
-                SphereMesh mesh = _meshInstance.Mesh as SphereMesh;
+        protected void setRadius(float newRadius)
+        {
+            _radius = newRadius;
+            if (_collisionShape == null) return;
+            SphereShape3D shape = _collisionShape.Shape as SphereShape3D;
+            if (_meshInstance == null) return;
+            SphereMesh mesh = _meshInstance.Mesh as SphereMesh;
 
-                if (shape != null)
-                    shape.Radius = newRadius;
-                if (mesh != null)
-                {
-                    mesh.Radius = newRadius;
-                    mesh.Height = 2 * newRadius;
-                }
-		}
+            if (shape != null)
+                shape.Radius = newRadius;
+            if (mesh != null)
+            {
+                mesh.Radius = newRadius;
+                mesh.Height = 2 * newRadius;
+            }
+        }
 
         private void onBodyEntered(Node3D body)
         {

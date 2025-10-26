@@ -17,7 +17,7 @@ namespace SpaceBallZ
         {
             Ball ball = applicant as Ball;
             ball.Speed = ball.InitialSpeed * _multiplySpeedValue;
-			ball.BallColor = new Color("Green");
+            ball.BallColor = new Color("Green");
         }
 
         public override void Clean(IBuffable applicant)

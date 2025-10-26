@@ -3,8 +3,8 @@ using System;
 
 namespace SpaceBallZ
 {
-	public partial class SpeedBuffScene : BuffScene
-	{
+    public partial class SpeedBuffScene : BuffScene
+    {
 
-	}
+    }
 }

@@ -23,11 +23,11 @@ namespace SpaceBallZ
 
         }
 
-        public Color BallColor 
-		{
-			get { return ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor; }
-			set { ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor = value; }
-		}
+        public Color BallColor
+        {
+            get { return ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor; }
+            set { ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor = value; }
+        }
 
         public float Speed { get; set; }
         public double StraightAngleMargin = 0.1;
