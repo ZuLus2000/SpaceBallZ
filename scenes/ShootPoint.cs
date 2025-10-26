@@ -33,11 +33,14 @@ namespace SpaceBallZ
         public override void _Ready()
         { }
 
-        public void SpawnBall()
+		public void SpawnBall() { SpawnBall(GetRandVector()); }
+
+        public void SpawnBall(Vector3 startVelociy)
         {
             Ball ballInstance = _ballScene.Instantiate() as Ball;
-            ballInstance.LinearVelocity = GetRandVector();
-            ballInstance.Speed = _initialSpeed;
+			ballInstance.Position = Position;
+            ballInstance.LinearVelocity = startVelociy.Normalized();
+            ballInstance.InitialSpeed = _initialSpeed;
             GetParent().CallDeferred(Node.MethodName.AddChild, ballInstance);
             EmitSignal(SignalName.BallSpawned, ballInstance);
         }

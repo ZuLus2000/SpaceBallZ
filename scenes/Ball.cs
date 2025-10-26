@@ -7,12 +7,31 @@ namespace SpaceBallZ
 {
     public partial class Ball : RigidBody3D, IBuffable
     {
-        public float InitialSpeed { get; private set; }
+        public float _initialSpeed = 0f;
+        public float InitialSpeed
+        {
+            get { return _initialSpeed; }
+            set
+            {
+                if (InitialSpeed != 0f)
+                {
+                    GD.PushWarning("Repeating assign of InitialSpeed!");
+                    return;
+                }
+                _initialSpeed = value;
+            }
+
+        }
+
         public float Speed { get; set; }
         public double StraightAngleMargin = 0.1;
 
         public HashSet<BallModifier> ActiveBuffs { get; private set; }
 
+        public override void _Ready()
+        {
+            Speed = InitialSpeed;
+        }
 
         public Ball New(float initialSpeed, double straightAngleMargin)
         {
@@ -22,13 +41,7 @@ namespace SpaceBallZ
             return this;
         }
 
-        void IBuffable.UpdateBuffs()
-        {
-            foreach (BallModifier buff in ActiveBuffs)
-            {
-                continue;
-            }
-        }
+        void IBuffable.UpdateBuffs() { }
 
 
         public override void _PhysicsProcess(double delta)
