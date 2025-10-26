@@ -39,14 +39,6 @@ namespace SpaceBallZ
             Speed = InitialSpeed;
         }
 
-        public Ball New(float initialSpeed, double straightAngleMargin)
-        {
-            InitialSpeed = initialSpeed;
-            Speed = InitialSpeed;
-            StraightAngleMargin = straightAngleMargin;
-            return this;
-        }
-
         void IBuffable.UpdateBuffs() { }
 
 
