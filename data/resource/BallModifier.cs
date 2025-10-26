@@ -5,6 +5,9 @@ namespace SpaceBallZ
 {
     public abstract partial class BallModifier : Resource
     {
+		[Export]
+		public PackedScene ModifierScene {get; private set;}
+
         protected abstract String _name { get; }
 
         protected abstract int _duration { get; set; }

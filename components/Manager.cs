@@ -24,6 +24,9 @@ namespace SpaceBallZ
         [Export]
         private MultiplayerObjectSpawner _playerSpawner;
 
+		[Export]
+		private Godot.Collections.Array<BallModifier> _spawnableBuffs = new();
+
         public bool DebugMode = false;
 
         public Player ControlledPlayer { get; private set; }
@@ -111,8 +114,23 @@ namespace SpaceBallZ
 
         private void OnSpawnBtnPressed()
         {
-            if ((isServerHost()) && _scoringBall == null) _shootPoint.SpawnBall();
+            if ((isServerHost()) && _scoringBall == null) _shootPoint.SpawnBall( new Vector3(0, 0, 1));
         }
+
+		private void onRandomBuffBtnPressed()
+		{
+			if (_spawnableBuffs.Count > 0)
+				spawnBuff(_spawnableBuffs.PickRandom(), Vector3.Zero);
+		}
+
+		private void spawnBuff(BallModifier modifier, Vector3 spawnCoords)
+		{
+			BuffScene buffScene = modifier.ModifierScene.Instantiate() as BuffScene;
+			buffScene.Position = spawnCoords;
+			buffScene.Buff = modifier; // HACK
+			// _arena.AddChild(buffScene);
+			GetParent().AddChild(buffScene);
+		}
 
     }
 }

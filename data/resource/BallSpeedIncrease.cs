@@ -13,17 +13,11 @@ namespace SpaceBallZ
         [Export]
         private float _multiplySpeedValue;
 
-        public BallSpeedIncrease(int duration, float increaseValue)
-        {
-            _duration = duration;
-            _multiplySpeedValue = increaseValue;
-        }
-
-
         public override void MakeEffect(Node applicant)
         {
             Ball ball = applicant as Ball;
             ball.Speed = ball.InitialSpeed * _multiplySpeedValue;
+			ball.BallColor = new Color("Green");
         }
 
         public override void Clean(IBuffable applicant)

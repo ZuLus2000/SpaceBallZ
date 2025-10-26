@@ -7,28 +7,39 @@ namespace SpaceBallZ
 {
     public partial class Ball : RigidBody3D, IBuffable
     {
-        public float InitialSpeed { get; private set; }
+        public float _initialSpeed = 0f;
+        public float InitialSpeed
+        {
+            get { return _initialSpeed; }
+            set
+            {
+                if (InitialSpeed != 0f)
+                {
+                    GD.PushWarning("Repeating assign of InitialSpeed!");
+                    return;
+                }
+                _initialSpeed = value;
+            }
+
+        }
+
+        public Color BallColor 
+		{
+			get { return ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor; }
+			set { ((FindChild("CSGSphere3D") as CsgSphere3D).MaterialOverride as StandardMaterial3D).AlbedoColor = value; }
+		}
+
         public float Speed { get; set; }
         public double StraightAngleMargin = 0.1;
 
         public HashSet<BallModifier> ActiveBuffs { get; private set; }
 
-
-        public Ball New(float initialSpeed, double straightAngleMargin)
+        public override void _Ready()
         {
-            InitialSpeed = initialSpeed;
             Speed = InitialSpeed;
-            StraightAngleMargin = straightAngleMargin;
-            return this;
         }
 
-        void IBuffable.UpdateBuffs()
-        {
-            foreach (BallModifier buff in ActiveBuffs)
-            {
-                continue;
-            }
-        }
+        void IBuffable.UpdateBuffs() { }
 
 
         public override void _PhysicsProcess(double delta)
