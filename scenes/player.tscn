@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://u33w8gk7atac"]
+[gd_scene load_steps=7 format=3 uid="uid://u33w8gk7atac"]
 
 [ext_resource type="PackedScene" uid="uid://byph5knwx6feb" path="res://scenes/bat.tscn" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bii2xrmsd3qlx" path="res://scenes/Player.cs" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://miqxa0kddb3s" path="res://components/InputControls.cs" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dwf52o7xbh0cl" path="res://assets/T-POSE SPRITE.png" id="4_dqkch"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f0re4"]
 size = Vector3(1, 1, 0.5)
@@ -13,7 +14,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Player" type="RigidBody3D"]
-transform = Transform3D(0.999995, 0.0032114, 0, -0.0032114, 0.999995, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.5999969, 0.0019268397, 0, -0.0019268397, 0.5999969, 0, 0, 0, 0.6, 0, 0, 0)
 collision_layer = 0
 collision_mask = 4
 axis_lock_linear_z = true
@@ -21,6 +22,8 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 0.0
+freeze_mode = 1
+linear_damp = 0.1
 script = ExtResource("1_qhqgy")
 _moveSpeed = 10.0
 
@@ -30,15 +33,18 @@ shape = SubResource("BoxShape3D_f0re4")
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(0.9999998, 2.3283064e-10, 0, -2.3283064e-10, 0.9999998, 0, 0, 0, 1, 0.11141225, 1.8652173, 0)
 fov = 103.8
 
 [node name="Bat" parent="." instance=ExtResource("1_g2els")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.17873347, 0.0005739875, -0.94404274)
 collision_layer = 8
-motion_mode = 1
 
 [node name="Controls" type="Node" parent="."]
 script = ExtResource("3_dqkch")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("4_dqkch")
