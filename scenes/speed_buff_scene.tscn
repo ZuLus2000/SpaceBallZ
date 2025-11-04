@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4jrhibry85l0"]
+
+[ext_resource type="PackedScene" uid="uid://bn7dm1oy3f0dc" path="res://scenes/buff_scene.tscn" id="1_p17l8"]
+[ext_resource type="Script" uid="uid://mg3fo7p3fwye" path="res://scenes/SpeedBuffScene.cs" id="2_lrx5x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qyox"]
+albedo_color = Color(0.6392157, 0.0627451, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qipvq"]
+material = SubResource("StandardMaterial3D_2qyox")
+radius = 1.0
+height = 2.0
+
+[node name="SpeedBuffScene" instance=ExtResource("1_p17l8")]
+script = ExtResource("2_lrx5x")
+
+[node name="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("SphereMesh_qipvq")

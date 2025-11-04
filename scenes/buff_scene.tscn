@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn7dm1oy3f0dc"]
+
+[ext_resource type="Script" uid="uid://dlb504nyambsl" path="res://scenes/BuffScene.cs" id="1_7k88c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o7soi"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_14bha"]
+radius = 1.0
+height = 2.0
+
+[node name="BuffScene" type="Node3D"]
+script = ExtResource("1_7k88c")
+Radius = 1.0
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_o7soi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_14bha")
