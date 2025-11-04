@@ -34,14 +34,16 @@ namespace SpaceBallZ
         public override void _PhysicsProcess(double delta)
         {
             if (!IsMultiplayerAuthority()) return;
-            Vector3 moveDirection = DesiredDirection;
+
+            Vector3 moveDirection = DesiredDirection.Normalized();
             if (XInverted) moveDirection.X *= -1;
-            if (_useFloatingPhysics)
-            {
-                ApplyInputForce(moveDirection * _moveSpeed);
-                return;
-            }
-            if (moveDirection != Vector3.Zero) MoveAndCollide(moveDirection * _moveSpeed);
+
+            ApplyCentralForce(moveDirection * _moveSpeed);
+
+            var velocity = LinearVelocity;
+            float maxSpeed = 10f;
+            if (velocity.Length() > maxSpeed)
+                LinearVelocity = velocity.Normalized() * maxSpeed;
         }
 
         private void ApplyInputForce(Vector3 force)
