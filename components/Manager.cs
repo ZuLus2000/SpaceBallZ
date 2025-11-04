@@ -27,6 +27,7 @@ namespace SpaceBallZ
         [Export]
         private Godot.Collections.Array<BallModifier> _spawnableBuffs = new();
 
+        [Export]
         public bool DebugMode = false;
 
         public Player ControlledPlayer { get; private set; }
@@ -114,7 +115,13 @@ namespace SpaceBallZ
 
         private void OnSpawnBtnPressed()
         {
-            if ((isServerHost()) && _scoringBall == null) _shootPoint.SpawnBall(new Vector3(0, 0, 1));
+            if ((isServerHost()) && _scoringBall == null)
+            {
+                if (DebugMode)
+                    _shootPoint.SpawnBall(new Vector3(0, 0, 1));
+                else
+                    _shootPoint.SpawnBall();
+            }
         }
 
         private void onRandomBuffBtnPressed()
