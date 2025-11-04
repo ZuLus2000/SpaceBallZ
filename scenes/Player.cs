@@ -35,14 +35,11 @@ namespace SpaceBallZ
 		{
 			if (!IsMultiplayerAuthority()) return;
 
-			// направление движения от ввода
 			Vector3 moveDirection = DesiredDirection.Normalized();
 			if (XInverted) moveDirection.X *= -1;
 
-			// применяем силу
 			ApplyCentralForce(moveDirection * _moveSpeed);
 
-			// ограничиваем линейную скорость (иначе RigidBody улетит)
 			var velocity = LinearVelocity;
 			float maxSpeed = 10f;
 			if (velocity.Length() > maxSpeed)
